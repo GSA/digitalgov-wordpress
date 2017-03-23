@@ -1,0 +1,13 @@
+
+# IDE settings
+.idea
+
+# mac osx file system
+.DS_store
+
+# node.js
+node_modules/
+
+# compiled styles and javascript for production
+assets/scss/.sass-cache/
+assets/scss/.sass-cache/*
