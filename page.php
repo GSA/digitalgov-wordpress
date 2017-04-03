@@ -1,5 +1,5 @@
 <?php get_header(); ?>
   
-  <?php loop(); ?>
+  <?php single_loop(); ?>
   
 <?php get_footer(); ?>
