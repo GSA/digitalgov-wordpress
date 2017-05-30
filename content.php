@@ -2,8 +2,12 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8">
       <div class="box">
-        <h1 class="head"><?php the_title(); ?></h1>
+        <?php echo dg_date($post->id); ?>
+        <?php echo dg_title($post->id); ?>
+        <h1 class="head"><?php echo dg_title($post->id); ?></h1>
         <div class="byline"><?php dg_byline(); ?> / <?php dg_entry_date(); ?></div>
+        <p><?php echo dg_summary($post->id); ?></p>
+        <p><?php echo dg_author_slugs($post->id); ?></p>
         <div class="entry-content">
           <?php the_content(); ?>  
         </div>

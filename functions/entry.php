@@ -6,14 +6,14 @@
 function custom_excerpt_length( $length ) {
   return 20;
 }
-add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+// add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
 
 // When there is no excerpt, wp inserts a [...] at the end of the auto-excerpt.
 // This replaces the [...] with an empty string.
 function new_excerpt_more( $more ) {
   return '';
 }
-add_filter( 'excerpt_more', 'new_excerpt_more' );
+// add_filter( 'excerpt_more', 'new_excerpt_more' );
 
 // This is a custom DG function that inserts the Read more tag for excerpts
 function dg_excerpt() {

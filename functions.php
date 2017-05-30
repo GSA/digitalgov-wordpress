@@ -7,8 +7,10 @@
 include_once 'functions/wp_enqueue_script.php';
 include_once 'functions/wp_actions.php';
 include_once 'functions/loop.php';
-include_once 'functions/images.php';
+include_once 'functions/migration.php';
 include_once 'functions/entry.php';
+include_once 'functions/events.php';
+
 
 // Variables
 if (! defined('WP_ENV'))
@@ -42,8 +44,6 @@ define('HOMEURL', $home_url);
 
 
 
-
-
 // Register a Menu
 function dg_register_menu() {
   register_nav_menu('site-nav',__( 'Site Nav' ));
@@ -60,3 +60,9 @@ function special_nav_class($classes, $item){
 	}
 	return $classes;
 }
+
+
+// MIGRATION Filters
+add_action('the_post', function($post, $query){
+  $post->post_content = str_replace('digitalgov.gov', 'WHATEVER', $post->post_content);
+}, 10, 2);

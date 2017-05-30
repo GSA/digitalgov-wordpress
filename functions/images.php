@@ -1,30 +1,4 @@
 <?php
-// These are the additional image sizes that will be cut when adding an image to WP
-add_image_size('w50', 50, 50, true );
-add_image_size('w75', 75, 75, true );
-add_image_size('w150', 150, 100, false );
-add_image_size('sq225', 225, 225, true );
-add_image_size('w300', 300, 300, true );
-add_image_size('w600', 600, 450, true );
-add_image_size('featured', 920, 9999, true);
-
-// These are the sizes that show up in the Admin
-$dg_imgsizes = array(
-  "w75" => __("Thumb (75)"),
-  "w100S" => __("Square (100)")
-);
-
-function custom_image_sizes($sizes) {
-  global $dg_imgsizes;
-  $newimgsizes = array_merge($sizes, $dg_imgsizes);
-  return $newimgsizes;
-}
-add_filter('image_size_names_choose', 'custom_image_sizes');
-
-// add_image_size( 'homepage-thumb', 280, 180, true ); //(cropped)
-
-
-
 
 // // Controls the Image HTML by modifying the WordPress Image shortcode.
 // // http://codex.wordpress.org/Function_Reference/add_filter
@@ -35,16 +9,17 @@ function new_img_shortcode_filter($val, $attr, $content = null) {
 		'align'	=> '',
 		'width'	=> '',
 		'caption' => '',
-		'src' => ''
+    'src' => '',
+		'url' => ''
 	), $attr));
 
-  
+
   // Get the specific ID of the Attachment  
   $find = 'attachment_';
   $cust_id = str_replace($find, '', $id);
 
-  $caption = get_post($cust_id)->post_excerpt;
-  $description = get_post($cust_id)->post_content;
+  // $caption = get_post($cust_id)->post_excerpt;
+  // $description = get_post($cust_id)->post_content;
 
 	$capid = '';
 	if ( $id ) {
@@ -52,20 +27,27 @@ function new_img_shortcode_filter($val, $attr, $content = null) {
 		$capid = 'id="figcaption_'. $id . '" ';
 		$id = 'id="' . $id . '"';
 	}
-
-  $raw = do_shortcode( $content );
+  
+  $raw = do_shortcode( $content, 'true');
+  print_r('******************');
+  print_r($raw);
+  print_r('******************');
 
   // Removes Height and Width from images
   $img = preg_replace( '/(width|height)="\d*"\s/', "", $raw);
   // adds in the .img-responsive class to all images
   $img = str_replace('class="', 'class="img-responsive ', $img);
   
+  // return '<div class="media w'.(0 + (int) $width).'">' . $img . '<p class="caption">' . $caption . '</p></div>';
+  print_r('*******');
 
-  if ($width == 75 || $width == 163 ) { // if image doesn't need a caption
-    return '<div class="media w'.(0 + (int) $width).'">' . $img . '</div>';
-  } else { // all other images
-    return '<div class="media w'.(0 + (int) $width).'">' . $img . '<p class="caption">' . $caption . '</p></div>';
-  }
+  print_r($img);
+  print_r('#####');
+  
+  print_r('*******');
+  // {% picture [preset] path/to/img.jpg [source_key: path/to/alt/img.jpg] [attribute="value"] %}
+  return '{% picture [preset] '.$img.' [source_key: '.$img.'] [attribute="'.$caption.'"] %}';
+
 }
 add_filter('img_caption_shortcode', 'new_img_shortcode_filter',10,3);
 
