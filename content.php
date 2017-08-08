@@ -6,8 +6,11 @@
         <?php echo dg_title($post->id); ?>
         <h1 class="head"><?php echo dg_title($post->id); ?></h1>
         <div class="byline"><?php dg_byline(); ?> / <?php dg_entry_date(); ?></div>
-        <p><?php echo dg_summary($post->id); ?></p>
-        <p><?php echo dg_author_slugs($post->id); ?></p>
+        -----------
+        <?php //print_r(dg_author_slugs($post->id)); ?>
+        -----------
+        <p><?php //echo dg_summary($post->id); ?></p>
+        <p><?php //echo dg_author_slugs($post->id); ?></p>
         <div class="entry-content">
           <?php the_content(); ?>  
         </div>
